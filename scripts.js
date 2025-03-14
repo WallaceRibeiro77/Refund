@@ -6,6 +6,8 @@ const category = document.getElementById("category");
 
 //seleciona os elementos da lista
 const expenseList = document.querySelector("ul")
+const expensesQuantity = document.querySelector("aside header p span")
+
 
 //evento para detectar a entrada de valor no input
 amount.oninput = () => {
@@ -103,6 +105,9 @@ function updateTotals(){
         // recupera todos os itens da lista
 
         const items = expenseList.children
+
+        //atualiza a quantidade de itens da lista
+        expensesQuantity.textContent = `${items.length} ${items.length > 1 ? "despesas" : "despesa"}`
 
     } catch (error) {
         console.log(error)
