@@ -4,6 +4,9 @@ const amount = document.getElementById("amount");
 const expense = document.getElementById("expense");
 const category = document.getElementById("category");
 
+//seleciona os elementos da lista
+const expenseList = document.querySelector("ul")
+
 //evento para detectar a entrada de valor no input
 amount.oninput = () => {
     //regex para negar entrada de caracteres no input
@@ -44,9 +47,65 @@ form.onsubmit = (e) =>{
 
 function expenseAdd(newExpense){
     try {
+        //cria o elemento para adicionar o item na lista
+        const expenseItem = document.createElement("li")
+        expenseItem.classList.add("expense")
+
+        //cria o icone da categoria
+        const expenseIcon = document.createElement("img")
+        expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
+        expenseIcon.setAttribute("alt", newExpense.category_name)
+
+        //cria a info da despesa
+        const expenseInfo = document.createElement("div")
+        expenseInfo.classList.add("expense-info")
         
+        //cria o nome da despesa
+        const expenseName = document.createElement("strong")
+        expenseName.textContent = newExpense.expense
+        
+        //cria a categoria da despesa
+        const expenseCategory = document.createElement("span")
+        expenseCategory.textContent = newExpense.category_name
+        
+        //adiciona nome e categoria na div das infos da despesa
+        expenseInfo.append(expenseName, expenseCategory)
+
+         //cria o elemento da despesa
+        const expenseAmount = document.createElement("span")
+        expenseAmount.classList.add("expense-amount")
+        expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$", "")}`
+
+        //adiciona a img do butao de remover
+        const removeIcon = document.createElement("img")
+        removeIcon.classList.add("remove-icon")
+        removeIcon.setAttribute("src", "/img/remove.svg");
+        removeIcon.setAttribute("alt", "remover");
+
+
+        //adiciona as informações no item.
+        expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon)
+
+        //adiciona o item na lista.
+        expenseList.append(expenseItem)
+
+        //atualiza os totais
+        updateTotals()
+
     } catch (error) {
         alert("Não foi possivel atualizar a lista de despesas.")
         console.log(error)
+    }
+}
+
+function updateTotals(){
+    try {
+        // recupera todos os itens da lista
+
+        const items = expenseList.children
+
+    } catch (error) {
+        console.log(error)
+        alert("Não foi possivel atualizar os totais.")
     }
 }
